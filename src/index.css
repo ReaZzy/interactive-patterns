@@ -21,7 +21,7 @@
   --color-destructive: oklch(0.577 0.245 27.325);
   --color-destructive-foreground: oklch(0.577 0.245 27.325);
   --color-border: oklch(0.82 0 0);
-  --color-input: oklch(0.90 0 0);
+  --color-input: oklch(0.9 0 0);
   --color-ring: oklch(0.5 0 0);
   --color-chart-1: oklch(0.646 0.222 41.116);
   --color-chart-2: oklch(0.6 0.118 184.714);
@@ -34,22 +34,22 @@
   --color-sidebar-primary-foreground: oklch(0.985 0 0);
   --color-sidebar-accent: oklch(0.96 0 0);
   --color-sidebar-accent-foreground: oklch(0.205 0 0);
-  --color-sidebar-border: oklch(0.90 0 0);
+  --color-sidebar-border: oklch(0.9 0 0);
   --color-sidebar-ring: oklch(0.5 0 0);
 
   --color-ascii-green: oklch(0.52 0.2 155);
   --color-ascii-blue: oklch(0.52 0.17 250);
   --color-ascii-amber: oklch(0.6 0.18 75);
   --color-ascii-violet: oklch(0.52 0.2 300);
-  --color-dot: oklch(0.90 0 0);
+  --color-dot: oklch(0.9 0 0);
 
   --radius: 0;
-  --font-sans: "SF Mono", "JetBrains Mono", "Fira Code",
-    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
-    "Courier New", monospace;
-  --font-mono: "SF Mono", "JetBrains Mono", "Fira Code",
-    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
-    "Courier New", monospace;
+  --font-sans:
+    "SF Mono", "JetBrains Mono", "Fira Code", ui-monospace, SFMono-Regular,
+    Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-mono:
+    "SF Mono", "JetBrains Mono", "Fira Code", ui-monospace, SFMono-Regular,
+    Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
 .dark {
@@ -72,12 +72,16 @@
   --color-border: oklch(0.28 0 0);
   --color-input: oklch(0.28 0 0);
   --color-ring: oklch(0.439 0 0);
-  --color-dot: oklch(0.20 0 0);
+  --color-dot: oklch(0.2 0 0);
 }
 
 @layer base {
   * {
     @apply border-border;
+  }
+  html {
+    @apply scroll-smooth scroll-pt-20;
+    overflow-y: scroll;
   }
   body {
     @apply bg-background text-foreground font-mono antialiased;
@@ -87,53 +91,10 @@
 }
 
 .dot-grid {
-  background-image: radial-gradient(circle, var(--color-dot) 1.2px, transparent 1.2px);
+  background-image: radial-gradient(
+    circle,
+    var(--color-dot) 1.2px,
+    transparent 1.2px
+  );
   background-size: 24px 24px;
-}
-
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
-}
-
-.cursor-blink {
-  animation: blink 1s step-end infinite;
-}
-
-.ascii-card {
-  position: relative;
-}
-
-.ascii-card::before {
-  content: "";
-  position: absolute;
-  inset: -4px;
-  border: 1px dashed transparent;
-  transition: border-color 0.15s ease;
-  pointer-events: none;
-}
-
-.ascii-card:hover::before,
-.ascii-card:focus-visible::before {
-  border-color: var(--color-foreground);
-}
-
-.ascii-card:focus-visible {
-  outline: 2px solid var(--color-foreground);
-  outline-offset: 4px;
-}
-
-.skip-link {
-  position: absolute;
-  top: -100%;
-  left: 16px;
-  z-index: 100;
-  padding: 8px 16px;
-  background: var(--color-foreground);
-  color: var(--color-background);
-  font-size: 12px;
-}
-
-.skip-link:focus {
-  top: 8px;
 }

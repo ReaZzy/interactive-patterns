@@ -109,3 +109,4 @@ For more information, read the Bun API docs in `node_modules/bun-types/docs/**.m
 ## Code Style
 
 - Do not leave comments in code. The code should be self-explanatory.
+- Use Tailwind CSS classes exclusively for styling. Do not use pure/inline CSS.

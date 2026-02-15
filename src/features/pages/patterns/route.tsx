@@ -1,6 +1,6 @@
 import { createRoute } from "@tanstack/react-router";
-import { rootRoute } from "./root";
-import { PatternPage } from "@/pages/PatternPage";
+import { rootRoute } from "../root";
+import { PatternPage } from "./patterns-page";
 
 export const patternRoute = createRoute({
   getParentRoute: () => rootRoute,
