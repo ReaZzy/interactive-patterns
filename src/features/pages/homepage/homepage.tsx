@@ -4,7 +4,7 @@ import { usePatterns } from "./use-patterns";
 export function HomePage() {
   const model = usePatterns();
 
-  if (model.state === "loading") {
+  if (model.status === "loading") {
     return (
       <div className="flex items-center gap-2 text-sm text-muted-foreground py-12">
         Loading patterns...
@@ -12,7 +12,7 @@ export function HomePage() {
     );
   }
 
-  if (model.state === "error") {
+  if (model.status === "error") {
     return (
       <div className="border-2 border-foreground/20 p-6" role="alert">
         <p className="text-sm font-bold">Failed to load patterns</p>
@@ -25,7 +25,7 @@ export function HomePage() {
 
   return (
     <div className="space-y-14">
-      {Object.entries(model.result).map(([category, patterns]) => (
+      {Object.entries(model.value).map(([category, patterns]) => (
         <section
           key={category}
           className="space-y-5"

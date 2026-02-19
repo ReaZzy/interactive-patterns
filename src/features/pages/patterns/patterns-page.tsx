@@ -4,7 +4,7 @@ import { usePattern } from "./use-pattern";
 export function PatternPage({ patternId }: { patternId: string }) {
   const model = usePattern(patternId);
 
-  if (model.state === "loading") {
+  if (model.status === "loading") {
     return (
       <div className="flex items-center gap-2 text-sm text-muted-foreground py-12">
         <span className="cursor-blink">_</span>
@@ -13,7 +13,7 @@ export function PatternPage({ patternId }: { patternId: string }) {
     );
   }
 
-  if (model.state === "error") {
+  if (model.status === "error" || !model.value) {
     return (
       <div className="space-y-4">
         <Link
@@ -25,16 +25,14 @@ export function PatternPage({ patternId }: { patternId: string }) {
         <div className="border-2 border-foreground/20 p-6" role="alert">
           <p className="text-sm font-bold">Pattern not found</p>
           <p className="text-xs text-muted-foreground mt-1">
-            {model.error instanceof Error
-              ? model.error.message
-              : `No pattern matches "${patternId}"`}
+            {`No pattern matches "${patternId}"`}
           </p>
         </div>
       </div>
     );
   }
 
-  const pattern = model.result;
+  const pattern = model.value;
 
   return (
     <div className="space-y-6">
