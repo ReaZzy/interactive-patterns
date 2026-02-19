@@ -7,13 +7,16 @@ export function PatternPage({ patternId }: { patternId: string }) {
   if (model.status === "loading") {
     return (
       <div className="flex items-center gap-2 text-sm text-muted-foreground py-12">
-        <span className="cursor-blink">_</span>
         Loading pattern...
       </div>
     );
   }
 
-  if (model.status === "error" || !model.value) {
+  if (
+    model.status === "error" ||
+    model.value instanceof Error ||
+    !model.value
+  ) {
     return (
       <div className="space-y-4">
         <Link

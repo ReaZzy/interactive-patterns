@@ -1,6 +1,6 @@
 import { Effect, Either, SubscriptionRef } from "effect";
 
-export class Model<Value> {
+export class Model<Value = unknown> {
   private valueRef: SubscriptionRef.SubscriptionRef<Value>;
   private listeners: Array<(value: Value) => void> = [];
 
@@ -47,7 +47,9 @@ export class Model<Value> {
   }
 }
 
-export class LoadableModel<Value, E = unknown> extends Model<Value> {
+export class LoadableModel<Value = unknown, E = unknown> extends Model<
+  Value | E
+> {
   public status: "loading" | "loaded" | "error" = "loading";
   constructor(
     private loader: () => Effect.Effect<Value, E>,
@@ -61,6 +63,7 @@ export class LoadableModel<Value, E = unknown> extends Model<Value> {
         const value = yield* Effect.either(this.loader());
         if (Either.isLeft(value)) {
           this.status = "error";
+          yield* this.setValueEffect(value.left);
           return;
         }
 
