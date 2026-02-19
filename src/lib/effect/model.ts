@@ -50,7 +50,7 @@ export class Model<Value = unknown> {
 export class LoadableModel<Value = unknown, E = unknown> extends Model<
   Value | E
 > {
-  public status: "loading" | "loaded" | "error" = "loading";
+  public status: "loading" | "loaded" = "loading";
   constructor(
     private loader: () => Effect.Effect<Value, E>,
     public initialValue: Value,
@@ -61,14 +61,13 @@ export class LoadableModel<Value = unknown, E = unknown> extends Model<
       Effect.gen(this, function* () {
         this.status = "loading";
         const value = yield* Effect.either(this.loader());
-        if (Either.isLeft(value)) {
-          this.status = "error";
-          yield* this.setValueEffect(value.left);
-          return;
-        }
-
         this.status = "loaded";
-        yield* this.setValueEffect(value.right);
+        if (Either.isLeft(value)) {
+          yield* this.setValueEffect(value.left);
+          Effect.logError(value.left);
+        } else {
+          yield* this.setValueEffect(value.right);
+        }
       }),
     );
   }

@@ -12,11 +12,7 @@ export function PatternPage({ patternId }: { patternId: string }) {
     );
   }
 
-  if (
-    model.status === "error" ||
-    model.value instanceof Error ||
-    !model.value
-  ) {
+  if (model.value instanceof Error || !model.value) {
     return (
       <div className="space-y-4">
         <Link

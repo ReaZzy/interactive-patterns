@@ -12,17 +12,6 @@ export function HomePage() {
     );
   }
 
-  if (model.status === "error") {
-    return (
-      <div className="border-2 border-foreground/20 p-6" role="alert">
-        <p className="text-sm font-bold">Failed to load patterns</p>
-        <p className="text-xs text-muted-foreground mt-1">
-          An unexpected error occurred.
-        </p>
-      </div>
-    );
-  }
-
   return (
     <div className="space-y-14">
       {Object.entries(model.value).map(([category, patterns]) => (
